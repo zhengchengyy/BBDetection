@@ -55,7 +55,7 @@ def click():
     global timer
     global clicked
     global button, tag
-    global inittime, termtime, db, collection
+    global inittime,db, collection
     if clicked:
         clicked = False
         timer.terminate()
@@ -76,9 +76,8 @@ if __name__ == '__main__':
     # mongodb
     client = MongoClient()
     db = client.beaglebone
-    collection = db.tags
+    collection = db.tags_1
     inittime = time.time()
-    termtime = time.time()
 
     root = tk.Tk()
     # text widget, the content is what should be inserted into database as a tag

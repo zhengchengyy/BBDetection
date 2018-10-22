@@ -61,6 +61,7 @@ class ThreadedUDPRequestHandler(socketserver.BaseRequestHandler):
         threadLock.release()
 
     def handle(self):
+        print('begin to handle')
         # transform original data
         data = self.request[0]
         jdata = json.loads(data.decode('utf-8'))
@@ -90,15 +91,15 @@ if __name__ == "__main__":
     # connect to mongodb server
     client = MongoClient()
     db = client.beaglebone
-    collection = db.volts
+    collection = db.volts_1
 
     # arrays for plotting
     xs = [0]
     ys = [0]
 
     # initiate the plot thread
-    plotThread = PlotThread(xs, ys)
-    plotThread.start()
+    # plotThread = PlotThread(xs, ys)
+    # plotThread.start()
 
     HOST, PORT = "", 20000
     server = ThreadedUDPServer((HOST, PORT), ThreadedUDPRequestHandler)

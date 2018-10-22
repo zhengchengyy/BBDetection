@@ -25,10 +25,10 @@ def client(ip, port, message):
         sock.close()
 
 if __name__ == "__main__":
-    configure_json = open("client.conf"),read()
-	conf = json.loads(configure_json)
-	HOST,PORT = conf['host'],conf['port']
-	NO = conf['device_no']
+    configure_json = open("client.conf").read()
+    conf = json.loads(configure_json)
+    HOST,PORT = conf['host'],conf['port']
+    NO = conf['device_no']
     while True:
         volt=getVolt()
         t = time.time()
