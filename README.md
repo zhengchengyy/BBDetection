@@ -36,3 +36,4 @@
 ![sit_up](https://images.gitee.com/uploads/images/2018/1024/101431_8a1c16dc_1602036.png "situp.png")
 ![vacant](https://images.gitee.com/uploads/images/2018/1024/101448_9d6e3416_1602036.png "vacant.png")
 ![walkby](https://images.gitee.com/uploads/images/2018/1024/101458_4b23c0fc_1602036.png "walkby.png")
+![sleep](https://images.gitee.com/uploads/images/2018/1024/101910_791690f5_1602036.png "sleep.png")
