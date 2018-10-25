@@ -61,4 +61,4 @@ def plot_from_db(action, db, volt_collection, tag_collection,port=27017, host='l
 
     plt.show()
 
-plot_from_db(action='sleep',db='beaglebone',tag_collection='tags_1',volt_collection='volts_1')
+plot_from_db(action='lay',db='beaglebone',tag_collection='tags_4',volt_collection='volts_4')

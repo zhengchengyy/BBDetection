@@ -91,7 +91,7 @@ if __name__ == "__main__":
     # connect to mongodb server
     client = MongoClient()
     db = client.beaglebone
-    collection = db.volts_1
+    collection = db.volts_4
 
     # arrays for plotting
     xs = [0]
