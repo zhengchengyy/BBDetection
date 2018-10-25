@@ -30,7 +30,7 @@
 
 ## 2018/10/25
 
-![lay](D:\学习\BeagleBone\lay.png)
+![lay](https://images.gitee.com/uploads/images/2018/1025/195009_b1985ff8_1561255.png "lay.png")
 
 ## 2018/10/24
 
@@ -40,4 +40,4 @@
 ![sit_up](https://images.gitee.com/uploads/images/2018/1024/101431_8a1c16dc_1602036.png "situp.png")
 ![vacant](https://images.gitee.com/uploads/images/2018/1024/101448_9d6e3416_1602036.png "vacant.png")
 ![walkby](https://images.gitee.com/uploads/images/2018/1024/101458_4b23c0fc_1602036.png "walkby.png")
-![sleep](https://images.gitee.com/uploads/images/2018/1024/101910_791690f5_1602036.png "sleep.png")
+![sleep](https://images.gitee.com/uploads/images/2018/1024/101910_791690f5_1602036.png "sleep.png")![输入图片说明]
