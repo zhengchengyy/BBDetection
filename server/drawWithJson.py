@@ -3,6 +3,7 @@ from matplotlib import pyplot as plt
 from matplotlib import style
 import json
 
+'a simple example for drawing with .json file'
 
 def draw_with_json(tag_url, volt_url, action, ndevices=3):
     tagData = []
@@ -99,8 +100,11 @@ def draw_with_json(tag_url, volt_url, action, ndevices=3):
         if f_volt:
             f_volt.close()
 
-
-draw_with_json(
-    "D:/workspace/GitRepos/IOT-with-beaglebone/IOT-with-beaglebone/testData/tags_2.json",
-    "D:/workspace/GitRepos/IOT-with-beaglebone/IOT-with-beaglebone/testData/volts_2.json",
-    'get_up')
+if __name__=='__main__':
+    # First parameter:  the absolute path of tag.json
+    # Second parameter: the absolute path of volt.json
+    # Third parameter:  a certain action
+    draw_with_json(
+        "D:/workspace/GitRepos/IOT-with-beaglebone/IOT-with-beaglebone/testData/tags_2.json",
+        "D:/workspace/GitRepos/IOT-with-beaglebone/IOT-with-beaglebone/testData/volts_2.json",
+        'get_up')
