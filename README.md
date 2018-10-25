@@ -31,7 +31,7 @@
 ## 2018/10/25
 
 ![lay](https://images.gitee.com/uploads/images/2018/1025/195009_b1985ff8_1561255.png "lay.png")
-
+![laymini](https://images.gitee.com/uploads/images/2018/1025/203019_3e02b645_1561255.png "laymini.png")
 ## 2018/10/24
 
 测试得到一组数据，因为同步存在问题，只有一台设备的时间是基本正确的，所以只有得到了一个beaglebone的数据。根据这些数据画图：
