@@ -1,3 +1,16 @@
+## 2018/11/4
+- 重新固定传感器，采集数据（正在进行）
+- 重新画图，实时画图时保证三个客户端数据在同一图中（正在进行）
+- 使用PTP协议（正在进行）
+
+## 2018/11/2
+- 调节三个放大器到同一倍数
+
+## 2018/10/25
+
+![lay](https://images.gitee.com/uploads/images/2018/1025/195009_b1985ff8_1561255.png "lay.png")
+![laymini](https://images.gitee.com/uploads/images/2018/1025/203019_3e02b645_1561255.png "laymini.png")
+
 ## 2018/10/9
 
 ### 任务更新
@@ -28,10 +41,6 @@
 
 - 搭建用于采集以及处理检波器数据的平台，建立数据库
 
-## 2018/10/25
-
-![lay](https://images.gitee.com/uploads/images/2018/1025/195009_b1985ff8_1561255.png "lay.png")
-![laymini](https://images.gitee.com/uploads/images/2018/1025/203019_3e02b645_1561255.png "laymini.png")
 ## 2018/10/24
 
 测试得到一组数据，因为同步存在问题，只有一台设备的时间是基本正确的，所以只有得到了一个beaglebone的数据。根据这些数据画图：
