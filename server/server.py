@@ -61,7 +61,7 @@ class ThreadedUDPRequestHandler(socketserver.BaseRequestHandler):
         threadLock.release()
 
     def handle(self):
-        print('begin to handle')
+        # print('begin to handle')
         # transform original data
         data = self.request[0]
         jdata = json.loads(data.decode('utf-8'))
@@ -75,7 +75,7 @@ class ThreadedUDPRequestHandler(socketserver.BaseRequestHandler):
 
         # update data
         self.updateData(time, volt)
-        print(device_no,time, volt)
+        # print(device_no,time, volt)
 
 
 
@@ -91,7 +91,7 @@ if __name__ == "__main__":
     # connect to mongodb server
     client = MongoClient()
     db = client.beaglebone
-    collection = db.volts_4
+    collection = db.volts_5
 
     # arrays for plotting
     xs = [0]

@@ -47,8 +47,8 @@ def plot_from_db(action, db, volt_collection, tag_collection,port=27017, host='l
         ax = fig.add_subplot(base+n)
         n += 1
         for i in range(1, ndevices + 1):
-            ax.plot(times[i], volts[i], label='device_' + str(i), color=colors[i - 1])
-            ax.set_ylim([0,1.6])
+            ax.plot(times[i], [v + i*0.2 for v in volts[i]], label='device_' + str(i), color=colors[i - 1],alpha=0.9)
+            ax.set_ylim([0,2])
             ax.set_ylabel('voltage')
 
         if n  == 2:
@@ -61,4 +61,4 @@ def plot_from_db(action, db, volt_collection, tag_collection,port=27017, host='l
 
     plt.show()
 
-plot_from_db(action='lay',db='beaglebone',tag_collection='tags_4',volt_collection='volts_4')
+plot_from_db(action='sit_and_lay',db='beaglebone',tag_collection='tags_5',volt_collection='volts_5')
