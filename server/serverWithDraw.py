@@ -4,9 +4,14 @@ import threading
 import socketserver
 import json, types, string
 import os, time
+import matplotlib.pyplot as plt
 import numpy as np
 import math
-from pymongo import MongoClient
+
+# configurate the figure
+import matplotlib as mpl
+mpl.rc('lines', linewidth=1, color='r', linestyle='-')
+plt.rcParams['figure.figsize'] = (10.0, 6.0)
 
 
 class PlotThread(threading.Thread):
@@ -20,7 +25,9 @@ class PlotThread(threading.Thread):
         fig = plt.figure()
         canvas = np.zeros((480, 640))
         screen = pf.screen(canvas, 'Examine')
-        plt.ylim(-0.5, 2)
+        # plt.ylim(0.695, 0.705)
+        # plt.ylim(0.76, 0.77)
+        plt.ylim(1730, 1750)
         while True:
             threadLock.acquire()
             plt.xlim(xs[-1] - 20, xs[-1] + 2)
@@ -30,7 +37,7 @@ class PlotThread(threading.Thread):
             image = np.fromstring(fig.canvas.tostring_rgb(), dtype=np.uint8, sep='')
             image = image.reshape(fig.canvas.get_width_height()[::-1] + (3,))
             screen.update(image)
-            time.sleep(0.01)  #防止配置低的电脑运行会卡
+            time.sleep(0.01)  # 防止配置低的电脑运行会卡
 
 
 class ThreadedUDPRequestHandler(socketserver.BaseRequestHandler):
@@ -53,24 +60,19 @@ class ThreadedUDPRequestHandler(socketserver.BaseRequestHandler):
         threadLock.release()
 
     def handle(self):
-        # print('begin to handle')
         # transform original data
         data = self.request[0]
         jdata = json.loads(data.decode('utf-8'))
-        jdata = jdata[0]
-        volt = jdata['voltage']
-        time = jdata['time']
-        device_no = jdata['device_no']
-
-        # insert the data into mongodb
-        collection.insert_one(jdata)
-
+        # print(jdata)
+        json_str = json.dumps(jdata[0])
+        data2 = json.loads(json_str)
+        # prevent abnormal data
+        # if data2['voltage']>0.5 and data2['voltage']<1.2:
+        volt = data2['voltage']
+        time = data2['time']
         # update data
         self.updateData(time, volt)
-        # print(device_no,time, volt)
-
-
-
+        print(time, volt)
 
 
 class ThreadedUDPServer(socketserver.ThreadingMixIn, socketserver.UDPServer):
@@ -79,19 +81,10 @@ class ThreadedUDPServer(socketserver.ThreadingMixIn, socketserver.UDPServer):
 
 if __name__ == "__main__":
     threadLock = threading.Lock()
-
-    # connect to mongodb server
-    client = MongoClient()
-    db = client.beaglebone
-    collection = db.volts_6
-
-    # arrays for plotting
     xs = [0]
     ys = [0]
-
-    # initiate the plot thread
-    # plotThread = PlotThread(xs, ys)
-    # plotThread.start()
+    plotThread = PlotThread(xs, ys)
+    plotThread.start()
 
     HOST, PORT = "", 20000
     server = ThreadedUDPServer((HOST, PORT), ThreadedUDPRequestHandler)

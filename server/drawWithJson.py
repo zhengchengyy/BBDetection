@@ -79,10 +79,10 @@ def draw_with_json(tag_url, volt_url, action, ndevices=3):
             for i in range(1, ndevices + 1):
                 ax.plot(
                     times[i],
-                    volts[i],
+                    [v + i * 0.2 for v in volts[i]],
                     label='device_' + str(i),
                     color=colors[i - 1])
-                ax.set_ylim([0, 1.6])
+                ax.set_ylim([0.8,1.8])
                 ax.set_ylabel('voltage')
 
             if n == 2:
@@ -105,6 +105,6 @@ if __name__=='__main__':
     # Second parameter: the absolute path of volt.json
     # Third parameter:  a certain action
     draw_with_json(
-        "D:/workspace/GitRepos/IOT-with-beaglebone/IOT-with-beaglebone/testData/tags_2.json",
-        "D:/workspace/GitRepos/IOT-with-beaglebone/IOT-with-beaglebone/testData/volts_2.json",
-        'get_up')
+        "D:/Offer/BBDetection/data/tags_5.json",
+        "D:/Offer/BBDetection/data/volts_5.json",
+        'uneasy')

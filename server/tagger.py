@@ -76,7 +76,7 @@ if __name__ == '__main__':
     # mongodb
     client = MongoClient()
     db = client.beaglebone
-    collection = db.tags_5
+    collection = db.tags_6
     inittime = time.time()
 
     root = tk.Tk()
