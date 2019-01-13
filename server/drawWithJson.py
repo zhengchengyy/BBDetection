@@ -100,6 +100,7 @@ def draw_with_json(tag_url, volt_url, action, ndevices=3):
         if f_volt:
             f_volt.close()
 
+
 if __name__=='__main__':
     # First parameter:  the absolute path of tag.json
     # Second parameter: the absolute path of volt.json
