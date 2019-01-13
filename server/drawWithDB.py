@@ -3,6 +3,10 @@ from matplotlib import pyplot as plt
 from matplotlib import style
 from exceptions import *
 
+config = {'action':'easy',
+          'db':'beaglebone',
+          'tag_collection':'tags_5',
+          'volt_collection':'volts_5'}
 
 def plot_from_db(action, db, volt_collection, tag_collection,port=27017, host='localhost', ndevices=3):
     client = MongoClient(port=port, host=host)
@@ -62,4 +66,9 @@ def plot_from_db(action, db, volt_collection, tag_collection,port=27017, host='l
 
     plt.show()
 
-plot_from_db(action='uneasy',db='beaglebone',tag_collection='tags_5',volt_collection='volts_5')
+
+if __name__=='__main__':
+    plot_from_db(action=config['action'],
+                  db=config['db'],
+                  tag_collection=config['tag_collection'],
+                  volt_collection=config['volt_collection'])
