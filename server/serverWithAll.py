@@ -1,3 +1,4 @@
+# 注意由于边实时画图边存数据库，client.py如果是不停的发数据，实时画图会有1s的延迟，需加上sleep(0.01)，减少发送数据的频率
 import pyformulas as pf
 import socket
 import threading
@@ -7,6 +8,7 @@ import os, time
 import matplotlib.pyplot as plt
 import numpy as np
 import math
+from pymongo import MongoClient
 
 # configurate the figure
 import matplotlib as mpl
@@ -26,8 +28,6 @@ class PlotThread(threading.Thread):
         canvas = np.zeros((480, 640))
         screen = pf.screen(canvas, 'Examine')
         plt.ylim(-0.5, 2)
-        # plt.ylim(0.695, 0.705)
-        # plt.ylim(0.76, 0.77)
         # plt.ylim(1730, 1750)
         while True:
             threadLock.acquire()
@@ -63,16 +63,17 @@ class ThreadedUDPRequestHandler(socketserver.BaseRequestHandler):
         # transform original data
         data = self.request[0]
         jdata = json.loads(data.decode('utf-8'))
-        # print(jdata)
-        json_str = json.dumps(jdata[0])
-        data2 = json.loads(json_str)
-        # prevent abnormal data
-        # if data2['voltage']>0.5 and data2['voltage']<1.2:
-        volt = data2['voltage']
-        time = data2['time']
+        jdata = jdata[0]
+        volt = jdata['voltage']
+        time = jdata['time']
+        device_no = jdata['device_no']
+
+        # insert the data into mongodb
+        collection.insert_one(jdata)
+
         # update data
         self.updateData(time, volt)
-        print(time, volt)
+        # print(device_no,time, volt)
 
 
 class ThreadedUDPServer(socketserver.ThreadingMixIn, socketserver.UDPServer):
@@ -80,9 +81,18 @@ class ThreadedUDPServer(socketserver.ThreadingMixIn, socketserver.UDPServer):
 
 
 if __name__ == "__main__":
-    threadLock = threading.Lock()
+    threadLock =  threading.Lock()
+
+    # connect to mongodb server
+    client = MongoClient()
+    db = client.beaglebone
+    collection = db.volts_6
+
+    # arrays for plotting
     xs = [0]
     ys = [0]
+
+    # initiate the plot thread
     plotThread = PlotThread(xs, ys)
     plotThread.start()
 

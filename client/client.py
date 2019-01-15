@@ -1,6 +1,6 @@
 import socket
 import threading
-import SocketServer
+import socketserver
 import json
 import random
 import time
@@ -12,7 +12,7 @@ def getVolt():
     analogPin="P9_40"
     potVal=ADC.read(analogPin)
     potVolt=potVal*1.8
-    sleep(0.01)
+    #sleep(0.01)  # 66次/s,不加它边存数据库和实时画图会有延迟
     return potVolt
 
 def client(ip, port, message):
@@ -34,8 +34,9 @@ if __name__ == "__main__":
         t = time.time()
         msg =[{
             "device_no":NO,
-			"time": t,
+            "time": t,
             "voltage": volt
         }]
         jmsg = json.dumps(msg)
         client(HOST, PORT, jmsg)
+
