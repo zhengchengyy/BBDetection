@@ -1,12 +1,13 @@
 from pymongo import MongoClient
 from matplotlib import pyplot as plt
 from matplotlib import style
-from exceptions import *
+from exceptions import CollectionError
+
 
 config = {'action':'easy',
           'db':'beaglebone',
-          'tag_collection':'tags_5',
-          'volt_collection':'volts_5'}
+          'tag_collection':'tags_1',
+          'volt_collection':'volts_1'}
 
 def plot_from_db(action, db, volt_collection, tag_collection,port=27017, host='localhost', ndevices=3):
     client = MongoClient(port=port, host=host)
@@ -14,8 +15,11 @@ def plot_from_db(action, db, volt_collection, tag_collection,port=27017, host='l
     tag_collection = database[tag_collection]
     volt_collection = database[volt_collection]
 
-    if volt_collection.count_documents({}) + tag_collection.count_documents({}) < 2:
-        raise CollectionError('Collection not found, please check names of the collection and database')
+    try:
+        if volt_collection.count_documents({}) + tag_collection.count_documents({}) < 2:
+            raise CollectionError('Collection not found, please check names of the collection and database')
+    except CollectionError as e:
+        print(e.message)
 
     ntags = tag_collection.count_documents({'tag':action})
     n = 1

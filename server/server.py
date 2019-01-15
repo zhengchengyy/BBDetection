@@ -70,15 +70,12 @@ class ThreadedUDPRequestHandler(socketserver.BaseRequestHandler):
         # print(device_no,time, volt)
 
 
-
-
-
 class ThreadedUDPServer(socketserver.ThreadingMixIn, socketserver.UDPServer):
     pass
 
 
 if __name__ == "__main__":
-    threadLock = threading.Lock()
+    threadLock =  threading.Lock()
 
     # connect to mongodb server
     client = MongoClient()
