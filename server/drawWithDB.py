@@ -6,8 +6,8 @@ from exceptions import CollectionError
 
 config = {'action':'easy',
           'db':'beaglebone',
-          'tag_collection':'tags_1',
-          'volt_collection':'volts_1'}
+          'tag_collection':'tags_5',
+          'volt_collection':'volts_5'}
 
 def plot_from_db(action, db, volt_collection, tag_collection,port=27017, host='localhost', ndevices=3):
     client = MongoClient(port=port, host=host)
