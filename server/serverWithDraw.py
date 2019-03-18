@@ -29,6 +29,7 @@ class PlotThread(threading.Thread):
         # plt.ylim(0.695, 0.705)
         # plt.ylim(0.76, 0.77)
         # plt.ylim(1730, 1750)
+        # plt.ylim(0.81,0.8125)
         while True:
             threadLock.acquire()
             plt.xlim(xs[-1] - 20, xs[-1] + 2)

@@ -12,7 +12,7 @@ def getVolt():
     analogPin="P9_40"
     potVal=ADC.read(analogPin)
     potVolt=potVal*1.8
-    #sleep(0.01)  # 66次/s,不加它边存数据库和实时画图会有延迟
+    sleep(0.01)  # 66次/s,不加它边存数据库和实时画图会有延迟
     return potVolt
 
 def client(ip, port, message):
