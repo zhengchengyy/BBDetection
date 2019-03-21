@@ -53,8 +53,8 @@ class SimpleLED:
             os.system("echo 0 > %sbrightness" % self.led_path)
             self.state = "off"
 
-# 报警跑马灯
-def alarm(n):
+# 轻微报警(跑马灯)
+def blink(n):
     LEDs = [SimpleLED(i) for i in range(4)]
     delay = 0.1
     for i in range(n):
@@ -66,8 +66,8 @@ def alarm(n):
             LEDs[j].Off()
         time.sleep(delay)
 
-# 报警闪烁
-def blink(n):
+# 严重报警(快速闪烁)
+def alarm(n):
     LEDs = [SimpleLED(i) for i in range(4)]
     delay = 0.1
     for i in range(n):
@@ -88,7 +88,7 @@ if __name__ == "__main__":
     # 根据时间采集数据，基本单位为s，比如一分钟，十分钟，75次/s
     interval = 1
     maxsize = 75 * interval
-    leapsize = 1
+    leapsize = 74
 
     # 定义特征提取器
     extractor = FeatureExtractor()
@@ -135,8 +135,10 @@ if __name__ == "__main__":
             PygetParaValue.restype = c_double  # 默认返回int类型，restype设置函数的返回类型
             sleep = PygetParaValue("sleep".encode("utf-8"))
             if(sleep==-1.0):
-                blink(5)
-            time.sleep(1)
+                blink(1)
+            if(sleep==-2.0):
+                alarm(3)
+            # time.sleep(1)
             print("sleep：", sleep)
 
             # 5 释放内存

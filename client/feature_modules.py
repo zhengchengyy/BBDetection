@@ -37,8 +37,8 @@ class ThresholdCounterModule(ProcessModule):
     """求超过指定阈值的个数"""
 
     FEATURE_NAME = "ThresholdCounter"
-    UPPER_THRESHOLD = 0.82
-    LOWER_THRESHOLD = 0.80
+    UPPER_THRESHOLD = 1.10
+    LOWER_THRESHOLD = 0.70
 
     def processFullQueue(self):
         count = 0
