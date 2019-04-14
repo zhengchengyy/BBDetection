@@ -3,6 +3,7 @@ from matplotlib import pyplot as plt
 from matplotlib import style
 import json
 
+
 'a simple example for drawing with .json file'
 
 def draw_with_json(tag_url, volt_url, action, ndevices=3):
@@ -50,7 +51,7 @@ def draw_with_json(tag_url, volt_url, action, ndevices=3):
                 times[i] = []
                 volts[i] = []
             # I tried to use generator instead of list ,but I failed.
-            # I dont know the exactly reason why generator cant work properly in a loop
+            # I don't know the exactly reason why generator can't work properly in a loop
             # for i in volt_generater:
             #     json_i = json.loads(i)
             #     if (json_i['time'] <= termTime) and (json_i['time'] >= initTime):
@@ -79,10 +80,15 @@ def draw_with_json(tag_url, volt_url, action, ndevices=3):
             for i in range(1, ndevices + 1):
                 ax.plot(
                     times[i],
-                    [v + i * 0.2 for v in volts[i]],
+                    # [v + i * 0.2 for v in volts[i]],
+                    volts[i],
                     label='device_' + str(i),
                     color=colors[i - 1])
-                ax.set_ylim([0.8,1.8])
+
+                # 自定义y轴的区间，可以使图放大或者缩小
+                # ax.set_ylim([0.8,1.8])
+                ax.set_ylim([0.75, 0.90])
+                # ax.set_ylim([0.81, 0.85])
                 ax.set_ylabel('voltage')
 
             if n == 2:
@@ -105,7 +111,10 @@ if __name__=='__main__':
     # First parameter:  the absolute path of tag.json
     # Second parameter: the absolute path of volt.json
     # Third parameter:  a certain action
+    # 大动作：翻身(turn_over)、腿部(hands_twitch)、伸展(legs_stretch)、手部伸展(hands_stretch)；
+    # 小动作：腿部抽搐(legs_twitch)、手部抽搐(hands_twitch)、头部微小移动(head_move)；
+    # 剧烈动作：抓握(grasp)、踢踹(kick)
     draw_with_json(
-        "D:/Offer/BBDetection/data/tags_5.json",
-        "D:/Offer/BBDetection/data/volts_5.json",
-        'uneasy')
+        "D:/Offer/BBDetection/data/tags_411.json",
+        "D:/Offer/BBDetection/data/volts_411.json",
+        'kick')

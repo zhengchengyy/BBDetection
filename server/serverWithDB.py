@@ -40,7 +40,7 @@ if __name__ == "__main__":
     # connect to mongodb server
     client = MongoClient()
     db = client.beaglebone
-    collection = db.volts_6
+    collection = db.volts_411
 
     HOST, PORT = "", 20000
     server = ThreadedUDPServer((HOST, PORT), ThreadedUDPRequestHandler)
