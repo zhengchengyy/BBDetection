@@ -35,8 +35,6 @@ class ThreadedUDPServer(socketserver.ThreadingMixIn, socketserver.UDPServer):
 
 
 if __name__ == "__main__":
-    threadLock =  threading.Lock()
-
     # connect to mongodb server
     client = MongoClient()
     db = client.beaglebone
