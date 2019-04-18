@@ -50,4 +50,4 @@ NTP：基于UDP，用于网络时间同步的协议，使网络中的计算机�
 
 采集的数据为时间及其对应时间点的电压值，设计为JSON格式方便存储和查询，而MongoDB非常适合存储JSON格式数据；并且任何属性都可索引便于查询；数据操作会先写入内存，然后再会持久化到硬盘中去，性能极高；以 BSON 结构（二进制）进行存储，适合大数据存储。
 
-注意：6和7部分的代码链接：<https://github.com/zhengchengyy/BBDataProcessing>
+注意：2、6和7部分的代码链接：<https://github.com/zhengchengyy/BBDataProcessing>
