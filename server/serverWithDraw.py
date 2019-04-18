@@ -74,7 +74,7 @@ class ThreadedUDPRequestHandler(socketserver.BaseRequestHandler):
         time = data2['time']
         # update data
         self.updateData(time, volt)
-        print(time, volt)
+        # print(time, volt)
 
 
 class ThreadedUDPServer(socketserver.ThreadingMixIn, socketserver.UDPServer):
