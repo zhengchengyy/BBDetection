@@ -4,9 +4,9 @@
 
 实验结果展示如下，更多结果可以在data目录下找到：
 
-![turn_over](D:\Offer\BBDetection\data\turn_over.png)
+![turn_over](https://github.com/zhengchengyy/BBDetection/blob/master/data/turn_over.png)
 
-![turn_over_enlargement](D:\Offer\BBDetection\data\turn_over_enlargement.png)
+![turn_over_enlargement](https://github.com/zhengchengyy/BBDetection/blob/master/data/turn_over_enlargement.png)
 
 项目采用基于软件定义智能的技术对老年人进行睡眠监测，把智能环境的数据层和控制层相分离，根据不同老年人的活动状况来自定义相关规则，控制层通过推理机根据规则推理的结果采取相应措施；通过分布式推理的方式充分利用了各个传感器结点的计算资源，减少了由于网络传输大量原始数据而产生的时延；并给出了软件定义智能的通用模型（数据层、特征层、推理层、控制层），可以在大部分智能环境设备中复用。我们的方法理论上可以解决老年人睡眠的监测，为老年人健康隐患和紧急危险提供安全保障。下面是该项目技术上的一些简单介绍：
 
