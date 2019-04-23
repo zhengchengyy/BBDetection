@@ -1,52 +1,31 @@
-## 2018/11/4
-- 重新固定传感器，采集数据（正在进行）
-- 重新画图，实时画图时保证三个客户端数据在同一图中（正在进行）
-- 使用PTP协议（正在进行）
+## 数据说明
 
-## 2018/11/2
-- 调节三个放大器到同一倍数
+### 人员分类
 
-## 2018/10/25
+PersonA：刘某
 
-![lay](https://images.gitee.com/uploads/images/2018/1025/195009_b1985ff8_1561255.png "lay.png")
-![laymini](https://images.gitee.com/uploads/images/2018/1025/203019_3e02b645_1561255.png "laymini.png")
+PersonB：郑某
 
-## 2018/10/9
+### 动作分类
 
-### 任务更新
+静止(1min)：still
 
-- 查找在Linux系统上打开WiFi热点的方法
+连贯动作(1min)：坐下躺下起身站起(sit_lay)
 
-- 将一台Linux主机或者其中一台Beaglebone设置为NTP服务器
+大动作(2min)：翻身(turn_over)、腿部伸展(legs_stretch)、手部伸展(hands_stretch)
 
-- 分析将TCP传输方式改为UDP的可行性，了解服务器上同时刻TCP连接数上限
+小动作(1min)：腿部抽搐(legs_twitch)、手部抽搐(hands_twitch)、头部微小移动(head_move)
 
-- *同步精确到μs级
+剧烈动作(1min)：抓握(grasp)、踢踹(kick)
 
-- wifi连接个数有没有上限，会不会影响延迟
+### 设备分布
 
-## 2018/10/11
+总共五个设备，床头两侧两个，床尾两侧两个，床脚一个。详细请看设备分布图。
 
-### 任务更新
+### 代码部分
 
-- 放弃使用NTP协议，改为使用PTP协议。可行性参考<http://linuxptp.sourceforge.net/>
+可以从json中读取数据并画图详见代码：/server/drawWithJson.py
 
-- 掌握PTP使用方法：
+可以从数据库中读取数据并画图详见代码：/server/drawWithDB.py
 
-  a参考TI的指南：[ICSS PTP 1588 Developer Guide](http://processors.wiki.ti.com/index.php?title=ICSS_PTP_1588_Developer_Guide&oldid=229581) 
-
-  b参考sourceforge的官方网站：[linuxptp](https://sourceforge.net/projects/linuxptp/)
-
-  c参考ptpd的github项目：[ptpd](https://github.com/ptpd/ptpd)
-
-- 搭建用于采集以及处理检波器数据的平台，建立数据库
-
-## 2018/10/24
-
-测试得到一组数据，因为同步存在问题，只有一台设备的时间是基本正确的，所以只有得到了一个beaglebone的数据。根据这些数据画图：
-
-![lay_down](https://images.gitee.com/uploads/images/2018/1024/101411_d9531a88_1602036.png "Figure_1.png")
-![sit_up](https://images.gitee.com/uploads/images/2018/1024/101431_8a1c16dc_1602036.png "situp.png")
-![vacant](https://images.gitee.com/uploads/images/2018/1024/101448_9d6e3416_1602036.png "vacant.png")
-![walkby](https://images.gitee.com/uploads/images/2018/1024/101458_4b23c0fc_1602036.png "walkby.png")
-![sleep](https://images.gitee.com/uploads/images/2018/1024/101910_791690f5_1602036.png "sleep.png")![输入图片说明]
+代码链接：<https://gitee.com/cockroaches/IOT-with-beaglebone/tree/master/server>
