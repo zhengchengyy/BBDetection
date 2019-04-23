@@ -2,9 +2,9 @@
 
 ### 人员分类
 
-PersonA：
+PersonA：刘某
 
-PersonB：
+PersonB：郑某
 
 ### 动作分类
 
@@ -27,3 +27,5 @@ PersonB：
 可以从json中读取数据并画图详见代码：/server/drawWithJson.py
 
 可以从数据库中读取数据并画图详见代码：/server/drawWithDB.py
+
+代码链接：<https://gitee.com/cockroaches/IOT-with-beaglebone/tree/master/server>
