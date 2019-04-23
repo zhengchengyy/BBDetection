@@ -2,14 +2,23 @@ from pymongo import MongoClient
 from matplotlib import pyplot as plt
 from matplotlib import style
 from exceptions import CollectionError
+import time
+import numpy as np
 
-
-config = {'action':'turn_over',
+config = {'action':'kick',
           'db':'beaglebone',
-          'tag_collection':'tags_411',
-          'volt_collection':'volts_411'}
+          'tag_collection':'tags_424',
+          'volt_collection':'volts_424'}
 
-def plot_from_db(action, db, volt_collection, tag_collection,port=27017, host='localhost', ndevices=3):
+def timeToFormat(t):
+    ftime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(t))
+    return ftime
+
+def timeToSecond(t):
+    stime = time.strftime("%M:%S", time.localtime(t))
+    return stime
+
+def plot_from_db(action, db, volt_collection, tag_collection,port=27017, host='localhost', ndevices=5):
     client = MongoClient(port=port, host=host)
     database = client[db]
     tag_collection = database[tag_collection]
@@ -24,14 +33,13 @@ def plot_from_db(action, db, volt_collection, tag_collection,port=27017, host='l
     ntags = tag_collection.count_documents({'tag':action})
     n = 1
 
-    fig = plt.figure(figsize=(6,8))
+    title =config['volt_collection'][6:] + "" + action
+    fig = plt.figure(title, figsize=(6,8))
     fig.suptitle(action)
-    # plt.title(action)
 
     # plot the data that is of a certain action one by one
     for tag in tag_collection.find({'tag': action}):
         inittime, termtime = tag['inittime'], tag['termtime']
-
         # get the arrays according to which we will plot later
         times, volts = {}, {}
         for i in range(1, ndevices + 1):
@@ -41,32 +49,52 @@ def plot_from_db(action, db, volt_collection, tag_collection,port=27017, host='l
         for volt in volt_collection.find({'time': {'$gt': inittime,'$lt': termtime}}):
             device_no = int(volt['device_no'])
             v = volt['voltage']
-            time = volt['time']
-            times[device_no].append(time)
+            t = volt['time']
+            times[device_no].append(t)
             volts[device_no].append(v)
 
-
         style.use('default')
-        colors = ['r', 'b', 'g', 'c', 'k', 'p']
+        colors = ['r', 'b', 'g', 'c', 'm']   #m c
+        subtitle = ['A', 'B', 'C' ,'D', 'E', 'F', 'G']
         base = ntags*100+10
 
-
-        # plot
+        # plot, add_subplot(211)将画布分割成2行1列，图像画在从左到右从上到下的第1块
         ax = fig.add_subplot(base+n)
-        n += 1
+        ax.set_title("Person"+subtitle[n-1]+": "+timeToFormat(inittime)+" ~ "+timeToFormat(termtime))
+        ax.set_xlim(inittime, termtime)
+
+        # 自定义y轴的区间，可以使图放大或者缩小
+        # ax.set_ylim([0.8,1.8])
+        ax.set_ylim([0.75, 0.90])
+        # ax.set_ylim([0.81, 0.85])
+        ax.set_ylabel('voltage')
+
         for i in range(1, ndevices + 1):
             # [v + i*0.2 for v in volts[i]]为了把多个设备的数据隔离开
-            ax.plot(times[i], [v + i*0.2 for v in volts[i]], label='device_' + str(i), color=colors[i - 1],alpha=0.9)
-            ax.set_ylim([0.8,1.8])
-            ax.set_ylabel('voltage')
+            ax.plot(times[i], volts[i], label='device_' + str(i), color=colors[i - 1], alpha=0.9)
 
-        if n  == 2:
+        if n  == 1:
             ax.legend(loc='upper right')
-        if n == ntags + 1:
+        if n == ntags:
             ax.set_xlabel('time')
-        else:
-            ax.set_xticks([])
+        n += 1
 
+        # # 以第一个设备的时间数据为准，数据的每1/10添加一个x轴标签
+        # ftimes = set()
+        # # ftimes.add(0)
+        # length = len(times[1])
+        # interval = length // 10
+        # for i in range(length):
+        #     if (i % interval == 0):
+        #         ftimes.add(timeToSecond(times[1][i]))
+        #
+        # # 由于集合插入后会自动排序，不是按插入的顺序排序，可以用列表实现
+        # labels = list(ftimes)
+        # labels.sort()
+        #
+        # print(labels)
+        # ax.set_xticks(range(length))
+        # ax.set_xticklabels(labels, rotation=15)
 
     plt.show()
 

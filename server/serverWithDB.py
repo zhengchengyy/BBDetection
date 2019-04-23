@@ -22,9 +22,6 @@ class ThreadedUDPRequestHandler(socketserver.BaseRequestHandler):
         data = self.request[0]
         jdata = json.loads(data.decode('utf-8'))
         jdata = jdata[0]
-        volt = jdata['voltage']
-        time = jdata['time']
-        device_no = jdata['device_no']
 
         # insert the data into mongodb
         collection.insert_one(jdata)
@@ -38,7 +35,7 @@ if __name__ == "__main__":
     # connect to mongodb server
     client = MongoClient()
     db = client.beaglebone
-    collection = db.volts_411
+    collection = db.volts_424
 
     HOST, PORT = "", 20000
     server = ThreadedUDPServer((HOST, PORT), ThreadedUDPRequestHandler)

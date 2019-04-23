@@ -71,12 +71,14 @@ def click():
         # Command to execute when start
         inittime = time.time()
 
+def click_interval(interval):
+    pass
 
 if __name__ == '__main__':
     # mongodb
     client = MongoClient()
     db = client.beaglebone
-    collection = db.tags_411
+    collection = db.tags_424
     inittime = time.time()
 
     root = tk.Tk()

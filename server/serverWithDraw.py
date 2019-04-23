@@ -32,10 +32,10 @@ class PlotThread(threading.Thread):
         # plt.ylim(1730, 1750)
         # plt.ylim(0.81,0.8125)
         while True:
-            threadLock.acquire()
+            # threadLock.acquire()
             plt.xlim(xs[-1] - 20, xs[-1] + 2)
             plt.plot(self.xs, self.ys, c='blue')
-            threadLock.release()
+            # threadLock.release()
             fig.canvas.draw()
             image = np.fromstring(fig.canvas.tostring_rgb(), dtype=np.uint8, sep='')
             image = image.reshape(fig.canvas.get_width_height()[::-1] + (3,))
@@ -53,13 +53,13 @@ class ThreadedUDPRequestHandler(socketserver.BaseRequestHandler):
             self.finish()
 
     def updateData(self, x, y):
-        threadLock.acquire()
+        # threadLock.acquire()
         xs.append(x)
         ys.append(y)
         if len(xs) > 50:
             del xs[0]
             del ys[0]
-        threadLock.release()
+        # threadLock.release()
 
     def handle(self):
         # transform original data

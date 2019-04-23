@@ -2,9 +2,13 @@ from pymongo import MongoClient
 from matplotlib import pyplot as plt
 from matplotlib import style
 import json
-
+import time
 
 'a simple example for drawing with .json file'
+
+def timeToFormat(t):
+    ftime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(t))
+    return ftime
 
 def draw_with_json(tag_url, volt_url, action, ndevices=3):
     tagData = []
@@ -39,12 +43,12 @@ def draw_with_json(tag_url, volt_url, action, ndevices=3):
         ntags = len(tagData)
         n = 1
 
-        fig = plt.figure(figsize=(6, 8))
+        fig = plt.figure(action, figsize=(6, 8))
         fig.suptitle(action)
 
         for data in tagData:
             initTime, termTime = data['inittime'], data["termtime"]
-            print(initTime,termTime)
+            # print(initTime,termTime)
 
             times, volts = {}, {}
             for i in range(1, ndevices + 1):
@@ -75,28 +79,25 @@ def draw_with_json(tag_url, volt_url, action, ndevices=3):
             colors = ['r', 'b', 'g', 'c', 'k', 'p']
             base = ntags * 100 + 10
 
+            # plot, add_subplot(211)将画布分割成2行1列，图像画在从左到右从上到下的第1块
             ax = fig.add_subplot(base + n)
-            n += 1
+            ax.set_title(timeToFormat(initTime) + " ~ " + timeToFormat(termTime))
+            ax.set_xlim(initTime, termTime)
+            # 自定义y轴的区间，可以使图放大或者缩小
+            # ax.set_ylim([0.8,1.8])
+            ax.set_ylim([0.75, 0.90])
+            # ax.set_ylim([0.81, 0.85])
+            ax.set_ylabel('voltage')
+
             for i in range(1, ndevices + 1):
-                ax.plot(
-                    times[i],
-                    # [v + i * 0.2 for v in volts[i]],
-                    volts[i],
-                    label='device_' + str(i),
-                    color=colors[i - 1])
+                # [v + i*0.2 for v in volts[i]]为了把多个设备的数据隔离开
+                ax.plot(times[i], volts[i], label='device_' + str(i), color=colors[i - 1], alpha=0.9)
 
-                # 自定义y轴的区间，可以使图放大或者缩小
-                # ax.set_ylim([0.8,1.8])
-                ax.set_ylim([0.75, 0.90])
-                # ax.set_ylim([0.81, 0.85])
-                ax.set_ylabel('voltage')
-
-            if n == 2:
+            if n == 1:
                 ax.legend(loc='upper right')
-            if n == ntags + 1:
+            if n == ntags:
                 ax.set_xlabel('time')
-            else:
-                ax.set_xticks([])
+            n += 1
 
         plt.show()
 

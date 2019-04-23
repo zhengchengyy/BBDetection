@@ -1,4 +1,0 @@
-{"_id":{"$oid":"5bfa587c89f938208ca039d8"},"inittime":1.5431333073739302e+09,"termtime":1.5431333081332228e+09,"tag":"test"}
-{"_id":{"$oid":"5bfa61fa89f938208ca039d9"},"inittime":1.543134736805025e+09,"termtime":1.5431357389082592e+09,"tag":"easy"}
-{"_id":{"$oid":"5bfa621b89f938208ca039da"},"inittime":1.5431357699816122e+09,"termtime":1.543135771913153e+09,"tag":"discard"}
-{"_id":{"$oid":"5bfa652289f9382f1cd999ab"},"inittime":1.543136196434964e+09,"termtime":1.5431365465659883e+09,"tag":"uneasy"}
