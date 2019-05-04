@@ -63,7 +63,7 @@ def plot_from_db(action, db, volt_collection, tag_collection,port=27017, host='l
         ax.set_title("Person"+subtitle[n-1]+": "+timeToFormat(inittime)+" ~ "+timeToFormat(termtime))
         ax.set_xlim(inittime, termtime)
 
-        # 自定义y轴的区间，可以使图放大或者缩小
+        # 自定义y轴的区间范围，可以使图放大或者缩小
         # ax.set_ylim([0.8,1.8])
         ax.set_ylim([0.75, 0.90])
         # ax.set_ylim([0.81, 0.85])
@@ -79,22 +79,16 @@ def plot_from_db(action, db, volt_collection, tag_collection,port=27017, host='l
             ax.set_xlabel('time')
         n += 1
 
-        # # 以第一个设备的时间数据为准，数据的每1/10添加一个x轴标签
-        # ftimes = set()
-        # # ftimes.add(0)
-        # length = len(times[1])
-        # interval = length // 10
-        # for i in range(length):
-        #     if (i % interval == 0):
-        #         ftimes.add(timeToSecond(times[1][i]))
-        #
-        # # 由于集合插入后会自动排序，不是按插入的顺序排序，可以用列表实现
-        # labels = list(ftimes)
-        # labels.sort()
-        #
-        # print(labels)
-        # ax.set_xticks(range(length))
-        # ax.set_xticklabels(labels, rotation=15)
+        # 以第一个设备的时间数据为准，数据的每1/10添加一个x轴标签
+        xticks = []
+        xticklabels = []
+        length = len(times[1])
+        interval = length // 5 - 1
+        for i in range(0,length,interval):
+            xticks.append(times[1][i])
+            xticklabels.append(timeToSecond(times[1][i]))
+        ax.set_xticks(xticks)  # 设定标签的实际数字，数据类型必须和原数据一致
+        ax.set_xticklabels(xticklabels, rotation=15)  # 设定我们希望它显示的结果，xticks和xticklabels的元素一一对应
 
     plt.show()
 
