@@ -1,12 +1,10 @@
 import pyformulas as pf
-import socket
 import threading
 import socketserver
-import json, types, string
-import os, time
+import os
 import matplotlib.pyplot as plt
 import numpy as np
-import math
+
 
 # configurate the figure
 import matplotlib as mpl
@@ -63,18 +61,13 @@ class ThreadedUDPRequestHandler(socketserver.BaseRequestHandler):
 
     def handle(self):
         # transform original data
-        data = self.request[0]
-        jdata = json.loads(data.decode('utf-8'))
-        # print(jdata)
-        json_str = json.dumps(jdata[0])
-        data2 = json.loads(json_str)
-        # prevent abnormal data
-        # if data2['voltage']>0.5 and data2['voltage']<1.2:
-        volt = data2['voltage']
-        time = data2['time']
+        data, addr = self.request[1].recvfrom(1024)  # 收到字节数组(bytes)数据，request[1]为socket
+        str = data.decode('utf-8')  # 解码成utf-8格式的字符串
+        dic = eval(str)[0]  # 转换成字符串，eval()函数用来执行一个字符串表达式，并返回表达式的值。
+        volt = dic['voltage']
+        time = dic['time']
         # update data
         self.updateData(time, volt)
-        # print(time, volt)
 
 
 class ThreadedUDPServer(socketserver.ThreadingMixIn, socketserver.UDPServer):

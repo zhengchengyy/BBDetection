@@ -33,43 +33,53 @@ class ThreadedUDPRequestHandler(socketserver.BaseRequestHandler):
 
     def handle(self):
         # transform original data
-        data = self.request[0]
-        jdata = json.loads(data.decode('utf-8'))
-        # print(jdata)
-        json_str = json.dumps(jdata[0])
-        data2 = json.loads(json_str)
-        # prevent abnormal data
-        # if data2['voltage']>0.5 and data2['voltage']<1.2:
-        volt = data2['voltage']
-        time = data2['time']
+        data,addr = self.request[1].recvfrom(1024) #收到字节数组(bytes)数据，request[1]为socket
+        str = data.decode('utf-8')  # 解码成utf-8格式的字符串s
+        dic = eval(str)[0] # 转换成字符串
+        volt = dic['voltage']
+        time = dic['time']
         # update data
         self.updateData(volt, time)
-        self.plot()
+        global flag
+        if (flag == False):
+            # print(len(xs))
+            fig = plt.figure()
+            canvas = np.zeros((480, 640))
+            screen = pf.screen(canvas, 'Examine')
+            flag = True
 
-        # ax.cla()
-        # ax.bar(ys, label='test', height=ys, width=0.3)
-        # ax.legend()
-        # plt.pause(0.3)
+
+        plt.ylim(0.4, 1.6)
+        plt.xlim(xs[-1] - 20, xs[-1] + 2)
+        plt.plot(xs, ys, c='blue')
+        # if(flag == False):
+        fig.canvas.draw()
+            # flag = True
+        image = np.fromstring(fig.canvas.tostring_rgb(), dtype=np.uint8, sep='')
+        image = image.reshape(fig.canvas.get_width_height()[::-1] + (3,))
+        screen.update(image)
 
 
+        # print(len(xs))
+        # print(volt,time)
+        # self.plot();
 
     def plot(self):
+        # canvas = np.zeros((480, 640))
+        # screen = pf.screen(canvas, 'Examine')
+        # plt.ylim(0.4, 1.6)
+        while(True):
+            print(len(xs))
+            canvas = np.zeros((480, 640))
+            screen = pf.screen(canvas, 'Examine')
+            plt.ylim(0.4, 1.6)
+            plt.xlim(xs[-1] - 20, xs[-1] + 2)
+            plt.plot(xs, ys, c='blue')
+            fig.canvas.draw()
+            image = np.fromstring(fig.canvas.tostring_rgb(), dtype=np.uint8, sep='')
+            image = image.reshape(fig.canvas.get_width_height()[::-1] + (3,))
+            screen.update(image)
 
-        plt.clf()
-        plt.plot(xs,ys)
-        plt.show()
-        # while(True):
-        #     print(len(xs), len(ys))
-        #     fig = plt.figure()
-        #     canvas = np.zeros((480, 640))
-        #     screen = pf.screen(canvas, 'Examine')
-        #     plt.ylim(0.4, 1.6)
-        #     plt.xlim(xs[-1] - 20, xs[-1] + 2)
-        #     plt.plot(xs, ys, c='blue')
-        #     fig.canvas.draw()
-        #     image = np.fromstring(fig.canvas.tostring_rgb(), dtype=np.uint8, sep='')
-        #     image = image.reshape(fig.canvas.get_width_height()[::-1] + (3,))
-        #     screen.update(image)
 
 class ThreadedUDPServer(socketserver.ThreadingMixIn, socketserver.UDPServer):
     pass
@@ -81,7 +91,7 @@ if __name__ == "__main__":
     ys = [0]
 
     plt.ion()
-
+    flag = False
     HOST, PORT = "", 20000
     server = ThreadedUDPServer((HOST, PORT), ThreadedUDPRequestHandler)
     server_thread = threading.Thread(target=server.serve_forever)
