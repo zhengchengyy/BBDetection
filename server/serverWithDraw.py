@@ -63,7 +63,7 @@ class ThreadedUDPRequestHandler(socketserver.BaseRequestHandler):
         # transform original data
         data, addr = self.request[1].recvfrom(1024)  # 收到字节数组(bytes)数据，request[1]为socket
         str = data.decode('utf-8')  # 解码成utf-8格式的字符串
-        dic = eval(str)[0]  # 转换成字符串，eval()函数用来执行一个字符串表达式，并返回表达式的值。
+        dic = eval(str)[0]  # 转换成字典，eval()函数用来执行一个字符串表达式，并返回表达式的值。
         volt = dic['voltage']
         time = dic['time']
         # update data

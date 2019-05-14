@@ -66,7 +66,7 @@ class ThreadedUDPRequestHandler(socketserver.BaseRequestHandler):
         jdata = jdata[0]
         volt = jdata['voltage']
         time = jdata['time']
-        # device_no = jdata['device_no']
+        device_no = jdata['device_no']
 
         # insert the data into mongodb
         # collection.insert_one(jdata)
