@@ -1,5 +1,5 @@
 {"_id":{"$oid":"5cdeb96d89f938d0c4fd0c66"},"inittime":1.558100328062013e+09,"termtime":1.5581003337944045e+09,"tag":"test"}
-{"_id":{"$oid":"5cdeb9d089f938a06c911d40"},"inittime":1.5581003702089355e+09,"termtime":1.558100432362653e+09,"tag":"still"}
+{"_id":{"$oid":"5cdeb9d089f938a06c911d40"},"inittime":1.5581003702089355e+09,"termtime":1.558100432362653e+09,"tag":"discard"}
 {"_id":{"$oid":"5cdeba6689f938c9b006c409"},"inittime":1.558100550831249e+09,"termtime":1.5581005826571467e+09,"tag":"still"}
 {"_id":{"$oid":"5cdebacf89f938b50c38e072"},"inittime":1.5581006527202682e+09,"termtime":1.5581006877193542e+09,"tag":"turn_over_left"}
 {"_id":{"$oid":"5cdebb1c89f938bf30ab99f3"},"inittime":1.5581007329563713e+09,"termtime":1.558100764319183e+09,"tag":"turn_over_right"}
