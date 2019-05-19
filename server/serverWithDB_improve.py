@@ -1,4 +1,4 @@
-import pyformulas as pf
+# import pyformulas as pf
 import socket
 import threading
 import socketserver
@@ -19,12 +19,11 @@ class ThreadedUDPRequestHandler(socketserver.BaseRequestHandler):
 
     def handle(self):
         # transform original data
-        data = self.request[0]
-        jdata = json.loads(data.decode('utf-8'))
-        jdata = jdata[0]
-
-        # insert the data into mongodb
-        collection.insert_one(jdata)
+        data = self.request[0].decode('utf-8')
+        data = eval(data)
+        for i in data:
+            #print(i)
+            collection.insert_one(i)
 
 
 class ThreadedUDPServer(socketserver.ThreadingMixIn, socketserver.UDPServer):
@@ -35,7 +34,7 @@ if __name__ == "__main__":
     # connect to mongodb server
     client = MongoClient()
     db = client.beaglebone
-    collection = db.volts_517
+    collection = db.volts_424
 
     HOST, PORT = "", 20000
     server = ThreadedUDPServer((HOST, PORT), ThreadedUDPRequestHandler)

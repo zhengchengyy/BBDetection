@@ -5,10 +5,10 @@ from exceptions import CollectionError
 import time
 import numpy as np
 
-config = {'action':'kick',
+config = {'action':'yang',
           'db':'beaglebone',
-          'tag_collection':'tags_424',
-          'volt_collection':'volts_424'}
+          'tag_collection':'tags_517',
+          'volt_collection':'volts_517'}
 
 def timeToFormat(t):
     ftime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(t))
@@ -60,6 +60,7 @@ def plot_from_db(action, db, volt_collection, tag_collection,port=27017, host='l
 
         # plot, add_subplot(211)将画布分割成2行1列，图像画在从左到右从上到下的第1块
         ax = fig.add_subplot(base+n)
+        plt.subplots_adjust(hspace=0.5)  # 函数中的wspace是子图之间的垂直间距，hspace是子图的上下间距
         ax.set_title("Person"+subtitle[n-1]+": "+timeToFormat(inittime)+" ~ "+timeToFormat(termtime))
         ax.set_xlim(inittime, termtime)
 
@@ -83,7 +84,7 @@ def plot_from_db(action, db, volt_collection, tag_collection,port=27017, host='l
         xticks = []
         xticklabels = []
         length = len(times[1])
-        interval = length // 5 - 1
+        interval = length // 10 - 1
         for i in range(0,length,interval):
             xticks.append(times[1][i])
             xticklabels.append(timeToSecond(times[1][i]))

@@ -40,7 +40,7 @@ class PlotThread(threading.Thread):
             plt.plot(self.xs_2, self.ys_2, c='g', label='2')
             plt.plot(self.xs_3, self.ys_3, c='r', label='3')
             plt.plot(self.xs_4, self.ys_4, c='c', label='4')
-            plt.plot(self.xs_5, self.ys_5, c='m', label='5')   #4y
+            plt.plot(self.xs_5, self.ys_5, c='m', label='5')
 
             if flag:
                 plt.legend()
@@ -98,12 +98,13 @@ class ThreadedUDPRequestHandler(socketserver.BaseRequestHandler):
 
     def handle(self):
         # transform original data
-        data, addr = self.request[1].recvfrom(1024)  # 收到字节数组(bytes)数据，request[1]为socket
-        str = data.decode('utf-8')  # 解码成utf-8格式的字符串
-        dic = eval(str)[0]  # 转换成字典，eval()函数用来执行一个字符串表达式，并返回表达式的值。
-        device_no = dic['device_no']
-        volt = dic['voltage']
-        time = dic['time']
+        data = self.request[0]
+        jdata = json.loads(data.decode('utf-8'))
+        jdata = jdata[0]
+        volt = jdata['voltage']
+        time = jdata['time']
+        device_no = jdata['device_no']
+
         # update data
         self.updateData(time, volt, device_no)
 
