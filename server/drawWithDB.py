@@ -5,7 +5,7 @@ from exceptions import CollectionError
 import time
 import numpy as np
 
-config = {'action':'yang',
+config = {'action':'still',
           'db':'beaglebone',
           'tag_collection':'tags_517',
           'volt_collection':'volts_517'}

@@ -12,6 +12,8 @@ PersonC：杨某/yang
 
 ### 睡眠活动
 
+still(30s)
+
 turn_over_left(30s)
 
 turn_over_right(30s)
