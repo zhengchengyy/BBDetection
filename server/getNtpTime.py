@@ -19,3 +19,7 @@ print("offset:", thisPC - ts)
 # ntp server time: 1463874631.6392817
 # this PC time: 1558097897.627403
 # offset: 94223265.98812127
+
+# ntp server time: 1463906029.6658
+# this PC time: 1560519170.621749
+# offset: 96613140.95594883

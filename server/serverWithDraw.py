@@ -23,7 +23,8 @@ class PlotThread(threading.Thread):
         fig = plt.figure()
         canvas = np.zeros((480, 640))
         screen = pf.screen(canvas, 'Examine')
-        plt.ylim(0.4, 1.6)
+        # plt.ylim(0.4, 1.6)
+        plt.ylim(0.6, 1.0)
         # plt.ylim(-0.5, 2)
         # plt.ylim(0.695, 0.705)
         # plt.ylim(0.76, 0.77)
@@ -57,6 +58,8 @@ class ThreadedUDPRequestHandler(socketserver.BaseRequestHandler):
         if len(xs) > 50:
             del xs[0]
             del ys[0]
+            # xs.pop(0)
+            # ys.pop(0)
         # threadLock.release()
 
     def handle(self):
