@@ -9,6 +9,7 @@ config = {'action':'still',
           'tag_collection':'tags_614',
           'volt_collection':'volts_614',
           'offset':96613140.95594883}
+# 614的offset：96613140.95594883
 
 def timeToFormat(t):
     ftime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(t))
