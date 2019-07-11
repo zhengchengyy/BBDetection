@@ -4,11 +4,12 @@ from matplotlib import style
 from exceptions import CollectionError
 import time
 
-config = {'action':'still',
+config = {'action':'legs_stretch',
           'db':'beaglebone',
-          'tag_collection':'tags_614',
-          'volt_collection':'volts_614',
-          'offset':96613140.95594883}
+          'tag_collection':'tags_411',
+          'volt_collection':'volts_411',
+          'offset':0}
+# 517的offset: 94223265.98812127
 # 614的offset：96613140.95594883
 
 def timeToFormat(t):
@@ -41,7 +42,7 @@ def plot_from_db(action, db, volt_collection, tag_collection, port=27017, host='
     # plot the data that is of a certain action one by one
     for tag in tag_collection.find({'tag': action}):
         # inittime
-        inittime, termtime = tag['termtime']-offset-1000, tag['termtime']-offset
+        inittime, termtime = tag['inittime']-offset, tag['termtime']-offset
         # get the arrays according to which we will plot later
         times, volts = {}, {}
         for i in range(1, ndevices + 1):
@@ -68,13 +69,14 @@ def plot_from_db(action, db, volt_collection, tag_collection, port=27017, host='
 
         # 自定义y轴的区间范围，可以使图放大或者缩小
         # ax.set_ylim([0.8,1.8])
-        ax.set_ylim([0.75, 0.90])
+        ax.set_ylim([0.8, 1.1])
+        # ax.set_ylim([0.75, 0.90])
         # ax.set_ylim([0.82, 0.83])
         ax.set_ylabel('voltage')
 
         for i in range(1, ndevices + 1):
             # [v + i*0.2 for v in volts[i]]为了把多个设备的数据隔离开
-            ax.plot(times[i], volts[i], label='device_' + str(i), color=colors[i - 1], alpha=0.9)
+            ax.plot(times[i], [v + i*0.05 for v in volts[i]], label='device_' + str(i), color=colors[i - 1], alpha=0.9)
 
         if n  == 1:
             ax.legend(loc='upper right')
