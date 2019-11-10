@@ -32,7 +32,7 @@ class PlotThread(threading.Thread):
         canvas = np.zeros((480, 640))
         screen = pf.screen(canvas, 'Examine')
         # plt.ylim(0.7, 1.5)
-        ax.set_ylim([0.85, 1.04])
+        plt.ylim(0.85, 1.04)
         flag = True
         while True:
             # threadLock.acquire()

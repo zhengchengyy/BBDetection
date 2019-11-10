@@ -78,7 +78,7 @@ if __name__ == '__main__':
     # mongodb
     client = MongoClient()
     db = client.beaglebone
-    collection = db.tags_614
+    collection = db.tags_1105
     inittime = time.time()
 
     root = tk.Tk()
@@ -95,3 +95,14 @@ if __name__ == '__main__':
     button = tk.Button(root, text='Start', fg='white', bg='green', command=click, width='30')
     button.pack()
     root.mainloop()
+
+
+# 每个动作的时间间隔不超过1s，每个动作30s
+# 静止：没人静止(still)、有人静止(still_people)
+# 床上有没有人：上床(get_up)、下床(go_to_bed)
+
+# 大动作：转身、翻身(turn_over)、腿部伸展(legs_stretch)、手部伸展(hands_stretch)
+# 中等动作：腿部抖动(legs_tremble)、手部抖动(hands_tremble)、身体抖动(body_tremble)
+# 小动作：头部微小移动(head_move)、腿部微小移动(legs_move)、手部微小移动(hands_move)
+# 其它动作：手部抬起(hands_rising)、踢踹(kick)
+# zheng
